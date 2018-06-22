@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vic.chat.sbm.dao.MessageDao">
+    <select id="selectFromAll" resultType="com.vic.chat.sbm.domain.Message">
+select * from t_message where  messageTo=#{idTo} and messageStatus='S' order by messageTime
+  </select>
+    <select id="selectFrom" resultType="com.vic.chat.sbm.domain.Message">
+    select * from t_message where messageFrom=#{idFrom} and messageTo=#{idTo} and messageStatus='S' order by messageTime
+  </select>
+    <delete id="deleteMessage" >
+  	delete from t_message where messageId=#{messageId}
+  </delete>
+    <insert id="insertMessage">
+	  INSERT INTO t_message(messageFrom,messageTo,messageInfo,messageStatus) VALUES(#{messageFrom},#{messageTo},#{messageInfo},#{messageStatus})
+	</insert>
+    <update id="updateMessage">
+	  update t_message set messageStatus=#{messageStatus} where messageId=#{messageId}
+	</update>
+</mapper>
